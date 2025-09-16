@@ -19,6 +19,12 @@ class DetailFragment : Fragment() {
         // kalau ada argumen param1/param2 bisa di-handle di sini
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val coffeeId = arguments?.getInt(COFFEE_ID, 0) ?: 0
+        setCoffeeData(coffeeId)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,4 +50,14 @@ class DetailFragment : Fragment() {
             }
         }
     }
+    companion object {
+        private const val COFFEE_ID = "COFFEE_ID"
+        fun newInstance(coffeeId: Int) =
+            DetailFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(COFFEE_ID, coffeeId)
+                }
+            }
+    }
+
 }
