@@ -9,10 +9,6 @@ import androidx.navigation.findNavController
 
 class ListFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,23 +23,23 @@ class ListFragment : Fragment() {
         val coffeeList = listOf<View>(
             view.findViewById(R.id.affogato),
             view.findViewById(R.id.americano),
-            view.findViewById(R.id.latte)
+            view.findViewById(R.id.latte),
+            view.findViewById(R.id.cappuccino),
+            view.findViewById(R.id.espresso)
         )
 
         coffeeList.forEach { coffee ->
             coffee.setOnClickListener {
                 val fragmentBundle = Bundle().apply {
-                    putInt(COFFEE_ID, coffee.id)
+                    // Mengirim ID dari view yang di-klik sebagai argumen
+                    putInt(DetailFragment.COFFEE_ID, coffee.id)
                 }
-                coffee.findNavController().navigate(
+                // Menjalankan aksi navigasi ke DetailFragment
+                it.findNavController().navigate(
                     R.id.coffee_id_action,
                     fragmentBundle
                 )
             }
         }
-    }
-
-    companion object {
-        const val COFFEE_ID = "COFFEE_ID"
     }
 }
